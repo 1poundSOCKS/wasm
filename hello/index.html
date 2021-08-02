@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple template</title>
+  </head>
+  <body>
+    <script>
+        try
+        {
+            var importObject = { imports: { imported_func: arg => console.log(arg) } };
+
+            WebAssembly.instantiateStreaming(fetch('hello.wasm'), importObject).then(results => {
+                const Sum = results.instance.exports.Sum;
+                document.write(Sum(4, 5));
+                console.log(Sum(10, 10));
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+        catch( e )
+        {
+            document.write("exception")
+        }
+    </script>
+  </body>
+</html>
